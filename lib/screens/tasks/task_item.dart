@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,8 +24,14 @@ class MyTask extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                  border: Border(
-                      left: BorderSide(color: MyColors.appBarColor, width: 5))),
+                border: EasyLocalization.of(context)!.currentLocale ==
+                        Locale("en")
+                    ? Border(
+                        left: BorderSide(color: MyColors.appBarColor, width: 5))
+                    : Border(
+                        right:
+                            BorderSide(color: MyColors.appBarColor, width: 5)),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -41,7 +48,7 @@ class MyTask extends StatelessWidget {
                   ),
                   Padding(
                     padding:
-                    const EdgeInsets.only(bottom: 12, left: 12, right: 12),
+                        const EdgeInsets.only(bottom: 12, left: 12, right: 12),
                     child: Row(
                       children: [
                         Icon(
@@ -64,7 +71,7 @@ class MyTask extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12)),
                     margin: EdgeInsets.only(right: 16),
                     padding:
-                    EdgeInsets.only(left: 15, right: 15, top: 6, bottom: 6),
+                        EdgeInsets.only(left: 15, right: 15, top: 6, bottom: 6),
                     child: Icon(
                       Icons.check,
                       color: Colors.white,

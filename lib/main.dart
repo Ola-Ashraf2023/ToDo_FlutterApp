@@ -1,12 +1,20 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/layout/home.dart';
 import 'package:to_do/providers/theme_provider.dart';
 import 'package:to_do/shared/styles/themes.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   runApp(ChangeNotifierProvider(
-      create: (context) => ThemeProvider(), child: MyApp()));
+      create: (context) => ThemeProvider(),
+      child: EasyLocalization(
+          supportedLocales: const [Locale('en'), Locale('ar')],
+          path: 'assets/translations',
+          fallbackLocale: const Locale("en"),
+          child: const MyApp())));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,6 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       title: 'To Do App',
       debugShowCheckedModeBanner: false,
       initialRoute: HomeScreen.routeName,
