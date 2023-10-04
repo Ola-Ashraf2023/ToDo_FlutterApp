@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/models/task_model.dart';
 import 'package:to_do/providers/theme_provider.dart';
+import 'package:to_do/shared/network/firebase/firebase_manager.dart';
 import 'package:to_do/shared/styles/colors.dart';
 
 class TaskSheet extends StatefulWidget {
@@ -14,11 +16,13 @@ class TaskSheet extends StatefulWidget {
 
 class _TaskSheetState extends State<TaskSheet> {
   DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
+  TextEditingController taskController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ThemeProvider>(context);
-    TextEditingController taskController = TextEditingController();
+
     return Container(
       color: provider.mode == ThemeMode.light
           ? Colors.white
@@ -69,7 +73,7 @@ class _TaskSheetState extends State<TaskSheet> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Text(
-                "Select Time",
+                "Select Date",
                 style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                         color: provider.mode == ThemeMode.light
@@ -88,10 +92,49 @@ class _TaskSheetState extends State<TaskSheet> {
                 "${selectedDate.toString().substring(0, 10)}",
                 style: TextStyle(color: MyColors.appBarColor, fontSize: 16),
               )),
+          Align(
+            alignment:
+                EasyLocalization.of(context)!.currentLocale == Locale("en")
+                    ? Alignment.topLeft
+                    : Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                "Select Time",
+                style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                        color: provider.mode == ThemeMode.light
+                            ? Colors.black
+                            : Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400)),
+              ).tr(),
+            ),
+          ),
+          InkWell(
+              onTap: () {
+                selectTime();
+              },
+              child: Text(
+                selectedTime.format(context),
+                style: TextStyle(color: MyColors.appBarColor, fontSize: 16),
+              )),
           Padding(
             padding: const EdgeInsets.only(top: 40.0, bottom: 40),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                print(
+                    "============================================hereeeeeeeeeeeeeeeeee");
+                TaskModel task = TaskModel(
+                    title: taskController.text,
+                    date: selectedDate.millisecondsSinceEpoch,
+                    time: selectedTime.format(context));
+                FirebaseManager.addTask(task).then(
+                  (value) {
+                    Navigator.pop(context);
+                  },
+                );
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -137,6 +180,28 @@ class _TaskSheetState extends State<TaskSheet> {
       return;
     }
     selectedDate = newDate;
+    setState(() {});
+  }
+
+  selectTime() async {
+    TimeOfDay? newTime = await showTimePicker(
+      initialTime: selectedTime,
+      builder: (context, child) {
+        return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: MyColors.appBarColor,
+                onPrimary: MyColors.whiteColor,
+              ),
+            ),
+            child: child!);
+      },
+      context: context,
+    );
+    if (newTime == null) {
+      return;
+    }
+    selectedTime = newTime;
     setState(() {});
   }
 }
