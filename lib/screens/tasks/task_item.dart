@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/models/task_model.dart';
 import 'package:to_do/providers/theme_provider.dart';
+import 'package:to_do/screens/tasks/edit_task.dart';
 import 'package:to_do/shared/network/firebase/firebase_manager.dart';
 import 'package:to_do/shared/styles/colors.dart';
 
@@ -38,7 +39,15 @@ class MyTask extends StatelessWidget {
                   topLeft: Radius.circular(12),
                   bottomLeft: Radius.circular(12))),
           SlidableAction(
-            onPressed: (context) {},
+            onPressed: (context) {
+              Navigator.pushNamed(context, EditTask.routeName,
+                  arguments: TaskModel(
+                      title: taskModel.title,
+                      date: taskModel.date,
+                      time: taskModel.time,
+                      id: taskModel.id,
+                      isDone: taskModel.isDone));
+            },
             label: "Edit",
             backgroundColor: Colors.green,
             icon: Icons.edit,

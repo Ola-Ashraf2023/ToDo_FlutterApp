@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/layout/home.dart';
 import 'package:to_do/providers/theme_provider.dart';
+import 'package:to_do/screens/tasks/edit_task.dart';
 import 'package:to_do/shared/styles/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
       initialRoute: HomeScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
+        EditTask.routeName: (context) => EditTask(),
       },
       theme: MyThemeData.lightTheme,
       darkTheme: MyThemeData.darkTheme,
