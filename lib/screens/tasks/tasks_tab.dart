@@ -9,19 +9,30 @@ import 'package:to_do/shared/styles/colors.dart';
 
 import '../../models/task_model.dart';
 
-class Tasks extends StatelessWidget {
+class Tasks extends StatefulWidget {
   const Tasks({super.key});
+
+  @override
+  State<Tasks> createState() => _TasksState();
+}
+
+class _TasksState extends State<Tasks> {
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ThemeProvider>(context);
+
     return Column(
       children: [
         CalendarTimeline(
-          initialDate: DateTime.now(),
+          initialDate: selectedDate,
           firstDate: DateTime.now().subtract(Duration(days: 20)),
           lastDate: DateTime.now().add(Duration(days: 365)),
-          onDateSelected: (date) => print(date),
+          onDateSelected: (date) {
+            selectedDate = date;
+            setState(() {});
+          },
           leftMargin: 20,
           monthColor: provider.mode == ThemeMode.light
               ? MyColors.lighterBlack
@@ -36,7 +47,7 @@ class Tasks extends StatelessWidget {
           locale: 'en_ISO',
         ),
         Expanded(
-            child: FutureBuilder<QuerySnapshot<TaskModel>>(
+            child: StreamBuilder<QuerySnapshot<TaskModel>>(
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -53,7 +64,7 @@ class Tasks extends StatelessWidget {
               },
             );
           },
-          future: FirebaseManager.getTask(),
+          stream: FirebaseManager.getTask(selectedDate),
         ))
       ],
     );

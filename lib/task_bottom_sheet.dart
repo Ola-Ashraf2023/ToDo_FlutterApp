@@ -123,11 +123,10 @@ class _TaskSheetState extends State<TaskSheet> {
             padding: const EdgeInsets.only(top: 40.0, bottom: 40),
             child: ElevatedButton(
               onPressed: () {
-                print(
-                    "============================================hereeeeeeeeeeeeeeeeee");
                 TaskModel task = TaskModel(
                     title: taskController.text,
-                    date: selectedDate.millisecondsSinceEpoch,
+                    date:
+                        DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch,
                     time: selectedTime.format(context));
                 FirebaseManager.addTask(task).then(
                   (value) {
