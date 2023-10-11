@@ -119,7 +119,10 @@ class SignUp extends StatelessWidget {
                           return;
                         }
                         FirebaseManager.createAccount(
-                            emailController.text, passController.text, () {
+                            emailController.text,
+                            passController.text,
+                            nameController.text,
+                            int.parse(ageController.text), () {
                           showDialog(
                               barrierDismissible: false,
                               context: context,

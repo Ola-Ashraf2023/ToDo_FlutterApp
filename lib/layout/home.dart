@@ -1,10 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do/screens/authentication/my_tapbar.dart';
 import 'package:to_do/screens/tasks/tasks_tab.dart';
 import 'package:to_do/shared/styles/colors.dart';
 import 'package:to_do/task_bottom_sheet.dart';
 
+import '../providers/my_provider.dart';
 import '../screens/settings/settings_tab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,12 +24,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
     return Scaffold(
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
-        title: Text("To Do List".tr(),
+        title: Text("${provider.userModel?.name}'s To Do List".tr(),
             style: Theme.of(context).textTheme.bodyLarge),
+        actions: [
+          //Text("${provider.userModel?.name}"),
+          ElevatedButton.icon(
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+              Navigator.pushNamedAndRemoveUntil(
+                  context, LoginBar.routeName, (route) => false);
+            },
+            icon: Icon(Icons.logout),
+            label: Text(""),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: MyColors.appBarColor, elevation: 0),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: MyColors.appBarColor,

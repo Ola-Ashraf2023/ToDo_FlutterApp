@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/models/task_model.dart';
-import 'package:to_do/providers/theme_provider.dart';
+import 'package:to_do/providers/my_provider.dart';
 import 'package:to_do/screens/tasks/edit_task.dart';
 import 'package:to_do/shared/network/firebase/firebase_manager.dart';
 import 'package:to_do/shared/styles/colors.dart';
@@ -19,7 +20,7 @@ class MyTask extends StatelessWidget {
     // var dt = DateTime.fromMillisecondsSinceEpoch(taskModel.date);
     // var date = DateFormat('MM/dd/yyyy, hh:mm a').format(dt);
     // print(date);
-    var provider = Provider.of<ThemeProvider>(context);
+    var provider = Provider.of<MyProvider>(context);
     return Card(
       color: provider.mode == ThemeMode.light
           ? Colors.white
@@ -42,6 +43,7 @@ class MyTask extends StatelessWidget {
             onPressed: (context) {
               Navigator.pushNamed(context, EditTask.routeName,
                   arguments: TaskModel(
+                      userId: FirebaseAuth.instance.currentUser!.uid,
                       title: taskModel.title,
                       date: taskModel.date,
                       time: taskModel.time,

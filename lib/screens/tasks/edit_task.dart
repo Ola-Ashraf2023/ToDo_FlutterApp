@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/task_model.dart';
-import '../../providers/theme_provider.dart';
+import '../../providers/my_provider.dart';
 import '../../shared/network/firebase/firebase_manager.dart';
 import '../../shared/styles/colors.dart';
 
@@ -24,7 +25,7 @@ class _EditTaskState extends State<EditTask> {
   bool flag = true;
 
   Widget build(BuildContext context) {
-    var provider = Provider.of<ThemeProvider>(context);
+    var provider = Provider.of<MyProvider>(context);
     var args = ModalRoute.of(context)?.settings.arguments as TaskModel;
     TextEditingController titleController =
         TextEditingController(text: args.title);
@@ -148,6 +149,7 @@ class _EditTaskState extends State<EditTask> {
                     child: ElevatedButton(
                       onPressed: () {
                         TaskModel task = TaskModel(
+                            userId: FirebaseAuth.instance.currentUser!.uid,
                             id: args.id,
                             isDone: args.isDone,
                             title: titleController.text,

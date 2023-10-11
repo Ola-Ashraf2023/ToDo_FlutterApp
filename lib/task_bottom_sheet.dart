@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/models/task_model.dart';
-import 'package:to_do/providers/theme_provider.dart';
+import 'package:to_do/providers/my_provider.dart';
 import 'package:to_do/shared/network/firebase/firebase_manager.dart';
 import 'package:to_do/shared/styles/colors.dart';
 
@@ -21,7 +22,7 @@ class _TaskSheetState extends State<TaskSheet> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<ThemeProvider>(context);
+    var provider = Provider.of<MyProvider>(context);
 
     return Container(
       color: provider.mode == ThemeMode.light
@@ -124,6 +125,7 @@ class _TaskSheetState extends State<TaskSheet> {
             child: ElevatedButton(
               onPressed: () {
                 TaskModel task = TaskModel(
+                    userId: FirebaseAuth.instance.currentUser!.uid,
                     title: taskController.text,
                     date:
                         DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch,

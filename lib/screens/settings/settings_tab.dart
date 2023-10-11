@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/providers/theme_provider.dart';
+import 'package:to_do/providers/my_provider.dart';
 import 'package:to_do/shared/styles/colors.dart';
 
 class Settings extends StatefulWidget {
@@ -14,7 +14,7 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<ThemeProvider>(context);
+    var provider = Provider.of<MyProvider>(context);
     String langValue = "English".tr();
     String themeValue = "Light".tr();
     var langs = ["English".tr(), "Arabic".tr()];

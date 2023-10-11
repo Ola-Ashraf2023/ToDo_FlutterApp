@@ -2,7 +2,7 @@ import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do/providers/theme_provider.dart';
+import 'package:to_do/providers/my_provider.dart';
 import 'package:to_do/screens/tasks/task_item.dart';
 import 'package:to_do/shared/network/firebase/firebase_manager.dart';
 import 'package:to_do/shared/styles/colors.dart';
@@ -21,7 +21,7 @@ class _TasksState extends State<Tasks> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<ThemeProvider>(context);
+    var provider = Provider.of<MyProvider>(context);
 
     return Column(
       children: [
