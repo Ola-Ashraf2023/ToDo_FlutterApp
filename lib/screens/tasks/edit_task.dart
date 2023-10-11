@@ -41,134 +41,143 @@ class _EditTaskState extends State<EditTask> {
         appBar: AppBar(
           title: Text("To Do App"),
         ),
-        body: Container(
-          color: provider.mode == ThemeMode.light
-              ? Colors.white
-              : MyColors.lighterBlack,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  "Edit Task",
-                  style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
+        body: Stack(
+          children: [
+            Card(
+              margin: EdgeInsets.only(top: 80, bottom: 80, left: 20, right: 20),
+              color: provider.mode == ThemeMode.light
+                  ? Colors.white
+                  : MyColors.lighterBlack,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      "Edit Task",
+                      style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: provider.mode == ThemeMode.light
+                                  ? Colors.black
+                                  : Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18)),
+                    ).tr(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: TextFormField(
+                      controller: titleController,
+                      style: TextStyle(
                           color: provider.mode == ThemeMode.light
                               ? Colors.black
-                              : Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18)),
-                ).tr(),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: TextFormField(
-                  controller: titleController,
-                  style: TextStyle(
-                      color: provider.mode == ThemeMode.light
-                          ? Colors.black
-                          : Colors.white),
-                  decoration: InputDecoration(
-                    hintStyle: TextStyle(
-                        color: provider.mode == ThemeMode.light
-                            ? Colors.black
-                            : Colors.grey),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: MyColors.appBarColor,
-                        ),
-                        borderRadius: BorderRadius.circular(12)),
-                    hintText: "enter your task".tr(),
-                  ),
-                ),
-              ),
-              Align(
-                alignment:
-                    EasyLocalization.of(context)!.currentLocale == Locale("en")
-                        ? Alignment.topLeft
-                        : Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    "Select Date",
-                    style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
+                              : Colors.white),
+                      decoration: InputDecoration(
+                        hintStyle: TextStyle(
                             color: provider.mode == ThemeMode.light
                                 ? Colors.black
-                                : Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400)),
-                  ).tr(),
-                ),
-              ),
-              InkWell(
-                  onTap: () {
-                    selectDate();
-                  },
-                  child: Text(
-                    "${selectedDate.toString().substring(0, 10)}",
-                    style: TextStyle(color: MyColors.appBarColor, fontSize: 16),
-                  )),
-              Align(
-                alignment:
-                    EasyLocalization.of(context)!.currentLocale == Locale("en")
-                        ? Alignment.topLeft
-                        : Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    "Select Time",
-                    style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                            color: provider.mode == ThemeMode.light
-                                ? Colors.black
-                                : Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400)),
-                  ).tr(),
-                ),
-              ),
-              InkWell(
-                  onTap: () {
-                    selectTime();
-                  },
-                  child: Text(
-                    selectedTime.format(context),
-                    style: TextStyle(color: MyColors.appBarColor, fontSize: 16),
-                  )),
-              Padding(
-                padding: const EdgeInsets.only(top: 40.0, bottom: 40),
-                child: ElevatedButton(
-                  onPressed: () {
-                    TaskModel task = TaskModel(
-                        id: args.id,
-                        isDone: args.isDone,
-                        title: titleController.text,
-                        date: DateUtils.dateOnly(selectedDate)
-                            .millisecondsSinceEpoch,
-                        time: selectedTime.format(context));
-                    FirebaseManager.updateAll(
-                        task.id, task.title, task.time, task.date);
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Confirm changes".tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(fontSize: 18),
+                                : Colors.grey),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: MyColors.appBarColor,
+                            ),
+                            borderRadius: BorderRadius.circular(12)),
+                        hintText: "enter your task".tr(),
+                      ),
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: MyColors.appBarColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12))),
-                ),
-              )
-            ],
-          ),
+                  Align(
+                    alignment: EasyLocalization.of(context)!.currentLocale ==
+                            Locale("en")
+                        ? Alignment.topLeft
+                        : Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        "Select Date",
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                color: provider.mode == ThemeMode.light
+                                    ? Colors.black
+                                    : Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400)),
+                      ).tr(),
+                    ),
+                  ),
+                  InkWell(
+                      onTap: () {
+                        selectDate();
+                      },
+                      child: Text(
+                        "${selectedDate.toString().substring(0, 10)}",
+                        style: TextStyle(
+                            color: MyColors.appBarColor, fontSize: 16),
+                      )),
+                  Align(
+                    alignment: EasyLocalization.of(context)!.currentLocale ==
+                            Locale("en")
+                        ? Alignment.topLeft
+                        : Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        "Select Time",
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                color: provider.mode == ThemeMode.light
+                                    ? Colors.black
+                                    : Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400)),
+                      ).tr(),
+                    ),
+                  ),
+                  InkWell(
+                      onTap: () {
+                        selectTime();
+                      },
+                      child: Text(
+                        selectedTime.format(context),
+                        style: TextStyle(
+                            color: MyColors.appBarColor, fontSize: 16),
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40.0, bottom: 40),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        TaskModel task = TaskModel(
+                            id: args.id,
+                            isDone: args.isDone,
+                            title: titleController.text,
+                            date: DateUtils.dateOnly(selectedDate)
+                                .millisecondsSinceEpoch,
+                            time: selectedTime.format(context));
+                        FirebaseManager.updateAll(
+                            task.id, task.title, task.time, task.date);
+                        Navigator.pop(context);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Confirm changes".tr(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(fontSize: 18),
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: MyColors.appBarColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12))),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
         ));
   }
 

@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/layout/home.dart';
 import 'package:to_do/providers/theme_provider.dart';
+import 'package:to_do/screens/authentication/login.dart';
+import 'package:to_do/screens/authentication/my_tapbar.dart';
+import 'package:to_do/screens/authentication/signup.dart';
 import 'package:to_do/screens/tasks/edit_task.dart';
 import 'package:to_do/shared/styles/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,6 +18,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  //FirebaseFirestore.instance.disableNetwork();   //Local database
   runApp(ChangeNotifierProvider(
       create: (context) => ThemeProvider(),
       child: EasyLocalization(
@@ -36,10 +41,11 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       title: 'To Do App',
       debugShowCheckedModeBanner: false,
-      initialRoute: HomeScreen.routeName,
+      initialRoute: LoginBar.routeName,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
         EditTask.routeName: (context) => EditTask(),
+        LoginBar.routeName: (context) => LoginBar(),
       },
       theme: MyThemeData.lightTheme,
       darkTheme: MyThemeData.darkTheme,

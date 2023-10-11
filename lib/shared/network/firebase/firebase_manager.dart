@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do/models/task_model.dart';
 
@@ -43,5 +44,41 @@ class FirebaseManager {
     getTaskCollection()
         .doc(taskId)
         .update({"title": newTitle, "time": newTime, "date": newDate});
+  }
+
+  static Future<void> createAccount(String emailAddress, String password,
+      Function onSuccess, Function onError) async {
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailAddress,
+        password: password,
+      );
+      //if(credential.user?.uid!=null){
+      //credential.user?.sendEmailVerification();
+      onSuccess();
+      //}
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        onError(e.message);
+      } else if (e.code == 'email-already-in-use') {
+        onError(e.message);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static Future<void> login(String emailAddress, String password) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: emailAddress, password: password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
   }
 }
