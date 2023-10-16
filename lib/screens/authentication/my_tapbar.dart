@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do/screens/authentication/login.dart';
 import 'package:to_do/screens/authentication/signup.dart';
@@ -12,14 +13,14 @@ class LoginBar extends StatelessWidget {
         child: Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              title: Text("To Do App"),
+              title: Text("To Do List").tr(),
               bottom: TabBar(
                 tabs: [
                   Tab(
-                    text: "Login",
+                    text: "Login".tr(),
                   ),
                   Tab(
-                    text: "SignUp",
+                    text: "Sign up".tr(),
                   ),
                 ],
               ),

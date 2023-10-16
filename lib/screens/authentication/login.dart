@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:to_do/layout/home.dart';
 import 'package:to_do/providers/my_provider.dart';
 import 'package:to_do/shared/network/firebase/firebase_manager.dart';
+import 'package:to_do/widgets/my_mail_text_field.dart';
+import 'package:to_do/widgets/my_pass_text_field.dart';
 
 import '../../shared/styles/colors.dart';
 
@@ -26,48 +28,11 @@ class Login extends StatelessWidget {
             key: _formkey,
             child: Column(
               children: [
-                TextFormField(
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email'.tr();
-                    }
-                    final bool emailValid = RegExp(
-                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value);
-                    if (!emailValid) {
-                      return 'Please enter a valid email'.tr();
-                    }
-                    return null;
-                  },
-                  controller: emailController,
-                  decoration: InputDecoration(
-                      hintText: "Please enter your email".tr(),
-                      contentPadding: EdgeInsets.all(20),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30))),
-                ),
+                MyMailTextField("Please enter your email", emailController),
                 SizedBox(
                   height: 30,
                 ),
-                TextFormField(
-                  obscureText: true,
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a password'.tr();
-                    }
-                    return null;
-                  },
-                  controller: passController,
-                  decoration: InputDecoration(
-                      hintText: "Please enter a password".tr(),
-                      contentPadding: EdgeInsets.all(20),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30))),
-                ),
+                MyPassTextField("Please enter a password", passController),
                 SizedBox(
                   height: 50,
                 ),

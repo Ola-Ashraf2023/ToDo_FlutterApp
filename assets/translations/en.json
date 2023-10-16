@@ -23,5 +23,6 @@
   "Please enter your age": "Please enter your age",
   "Signed up successfully": "Signed up successfully",
   "Success": "Success",
-  "Sign up": "Sign up"
+  "Sign up": "Sign up",
+  "Password is too short": "Password is too short"
 }

@@ -23,5 +23,6 @@
   "Please enter your age": "ادخل عمرك",
   "Signed up successfully": "تم التسجبل بنجاح",
   "Success": "نجاح",
-  "Sign up": "اشتراك"
+  "Sign up": "اشتراك",
+  "Password is too short": "كلمة المرور قصيرة"
 }
