@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/layout/home.dart';
@@ -28,19 +29,19 @@ class Login extends StatelessWidget {
                 TextFormField(
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter an email';
+                      return 'Please enter your email'.tr();
                     }
                     final bool emailValid = RegExp(
                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                         .hasMatch(value);
                     if (!emailValid) {
-                      return 'Please enter a valid email';
+                      return 'Please enter a valid email'.tr();
                     }
                     return null;
                   },
                   controller: emailController,
                   decoration: InputDecoration(
-                      hintText: "Enter your email",
+                      hintText: "Please enter your email".tr(),
                       contentPadding: EdgeInsets.all(20),
                       filled: true,
                       fillColor: Colors.white,
@@ -54,13 +55,13 @@ class Login extends StatelessWidget {
                   obscureText: true,
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a password';
+                      return 'Please enter a password'.tr();
                     }
                     return null;
                   },
                   controller: passController,
                   decoration: InputDecoration(
-                      hintText: "Enter your password here",
+                      hintText: "Please enter a password".tr(),
                       contentPadding: EdgeInsets.all(20),
                       filled: true,
                       fillColor: Colors.white,
@@ -88,33 +89,33 @@ class Login extends StatelessWidget {
                               barrierDismissible: false,
                               context: context,
                               builder: (context) => AlertDialog(
-                                    title: Text("Error"),
-                                    content: Text(message.toString()),
-                                    actions: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text(
-                                          "Okay",
+                                title: Text("Error"),
+                                content: Text(message.toString()),
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      "Done!".tr(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge!
                                               .copyWith(fontSize: 18),
                                         ),
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                MyColors.appBarColor,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(12))),
-                                      )
-                                    ],
-                                  ));
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                        MyColors.appBarColor,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(12))),
+                                  )
+                                ],
+                              ));
                         });
                       },
                       child: Text(
-                        "Login",
+                        "Login".tr(),
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge!

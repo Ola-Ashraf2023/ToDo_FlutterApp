@@ -14,5 +14,14 @@
   "Select Time": "اختر الوقت",
   "Done!": "تم!",
   "Edit Task": "تعديل مهمة",
-  "Confirm changes": "تأكيد التعديلات"
+  "Confirm changes": "تأكيد التعديلات",
+  "Please enter your email": "ادخل الايميل الخاص بك",
+  "Please enter a valid email": "ادخل ايميل صحيح",
+  "Please enter a password": "ادخل كلمة المرور",
+  "Login": "تسجبل الدخول",
+  "Please enter your name": "ادخل اسمك",
+  "Please enter your age": "ادخل عمرك",
+  "Signed up successfully": "تم التسجبل بنجاح",
+  "Success": "نجاح",
+  "Sign up": "اشتراك"
 }

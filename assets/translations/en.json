@@ -14,5 +14,14 @@
   "Select Time": "Select Time",
   "Done!": "Done!",
   "Edit Task": "Edit Task",
-  "Confirm changes": "Confirm changes"
+  "Confirm changes": "Confirm changes",
+  "Please enter your email": "Please enter your email",
+  "Please enter a valid email": "Please enter a valid email",
+  "Please enter a password": "Please enter a password",
+  "Login": "Login",
+  "Please enter your name": "Please enter your name",
+  "Please enter your age": "Please enter your age",
+  "Signed up successfully": "Signed up successfully",
+  "Success": "Success",
+  "Sign up": "Sign up"
 }

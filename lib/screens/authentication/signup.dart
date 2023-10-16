@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do/layout/home.dart';
 import 'package:to_do/screens/authentication/login.dart';
@@ -28,13 +29,13 @@ class SignUp extends StatelessWidget {
                 TextFormField(
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your name';
+                      return 'Please enter your name'.tr();
                     }
                     return null;
                   },
                   controller: nameController,
                   decoration: InputDecoration(
-                      hintText: "Enter your name",
+                      hintText: "Please enter your name".tr(),
                       contentPadding: EdgeInsets.all(20),
                       filled: true,
                       fillColor: Colors.white,
@@ -48,13 +49,13 @@ class SignUp extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your age';
+                      return 'Please enter your age'.tr();
                     }
                     return null;
                   },
                   controller: ageController,
                   decoration: InputDecoration(
-                      hintText: "Enter your age",
+                      hintText: "Please enter your age".tr(),
                       contentPadding: EdgeInsets.all(20),
                       filled: true,
                       fillColor: Colors.white,
@@ -67,19 +68,19 @@ class SignUp extends StatelessWidget {
                 TextFormField(
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
+                      return 'Please enter your email'.tr();
                     }
                     final bool emailValid = RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                         .hasMatch(value);
                     if (!emailValid) {
-                      return 'Please enter a valid email';
+                      return 'Please enter a valid email'.tr();
                     }
                     return null;
                   },
                   controller: emailController,
                   decoration: InputDecoration(
-                      hintText: "Enter your email",
+                      hintText: "Please enter your email".tr(),
                       contentPadding: EdgeInsets.all(20),
                       filled: true,
                       fillColor: Colors.white,
@@ -93,13 +94,13 @@ class SignUp extends StatelessWidget {
                   obscureText: true,
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a password';
+                      return 'Please enter a password'.tr();
                     }
                     return null;
                   },
                   controller: passController,
                   decoration: InputDecoration(
-                      hintText: "Enter your password here",
+                      hintText: "Please enter a password".tr(),
                       contentPadding: EdgeInsets.all(20),
                       filled: true,
                       fillColor: Colors.white,
@@ -127,8 +128,9 @@ class SignUp extends StatelessWidget {
                               barrierDismissible: false,
                               context: context,
                               builder: (context) => AlertDialog(
-                                    title: Text("Success"),
-                                    content: Text("Signed up successfully"),
+                                    title: Text("Success".tr()),
+                                    content:
+                                        Text("Signed up successfully".tr()),
                                     actions: [
                                       ElevatedButton(
                                           style: ElevatedButton.styleFrom(
@@ -140,48 +142,48 @@ class SignUp extends StatelessWidget {
                                                           12))),
                                           onPressed: () {
                                             Navigator.pop(context);
-                                          },
-                                          child: Text(
-                                            "Okay",
+                                      },
+                                      child: Text(
+                                        "Done!".tr(),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyLarge!
                                                 .copyWith(fontSize: 18),
                                           ))
-                                    ],
-                                  ));
+                                ],
+                              ));
                         }, (error) {
                           showDialog(
                               barrierDismissible: false,
                               context: context,
                               builder: (context) => AlertDialog(
-                                    title: Text("Error"),
-                                    content: Text(error.toString()),
-                                    actions: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text(
-                                          "Okay",
+                                title: Text("Error"),
+                                content: Text(error.toString()),
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      "Done!",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge!
                                               .copyWith(fontSize: 18),
                                         ),
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                MyColors.appBarColor,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(12))),
-                                      )
-                                    ],
-                                  ));
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                        MyColors.appBarColor,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(12))),
+                                  )
+                                ],
+                              ));
                         });
                       },
                       child: Text(
-                        "Sign up",
+                        "Sign up".tr(),
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge!
